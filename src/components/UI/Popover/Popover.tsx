@@ -11,6 +11,7 @@ export interface IProps {
   dropdownText?: any;
   dropdownClass?: string;
   dropdownWrapperClass?: string;
+  isPopoverActive?: boolean,
   children?: any;
 }
 export default class IPopover extends React.Component<IProps, IState> {
@@ -18,7 +19,7 @@ export default class IPopover extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isPopoverActive: false
+      isPopoverActive: this.props.isPopoverActive || false
     };
   }
   public componentDidMount() {
@@ -28,7 +29,11 @@ export default class IPopover extends React.Component<IProps, IState> {
   public componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleOutsideClick);
   }
+
   public render() {
+
+    const isPopoverActive = this.state.isPopoverActive && this.props.isPopoverActive;
+
     return (
       <div
         ref={node => {
@@ -36,7 +41,7 @@ export default class IPopover extends React.Component<IProps, IState> {
         }}
         className={`dropdown toolbar-item ${
           this.props.dropdownWrapperClass ? this.props.dropdownWrapperClass : ''
-        } ${this.state.isPopoverActive ? 'active' : ''}`}
+        } ${isPopoverActive ? 'active' : ''}`}
       >
         <span className="popover-trigger">
           <span
@@ -52,9 +57,7 @@ export default class IPopover extends React.Component<IProps, IState> {
           <span onClick={this.onPopoverActive} className="arrow" />
         </span>
         <div
-          className={`popover ${this.props.popoverTypeClass} ${
-            this.state.isPopoverActive ? 'show' : ''
-          }`}
+          className={`popover ${this.props.popoverTypeClass} ${isPopoverActive ? ' show' : ''}`}
           id={this.props.popoverTypeId}
         >
           {this.props.children}

@@ -4,13 +4,15 @@ import './fontsize.css';
 
 export interface IFontSizeState {
   fontsize: number;
+  isPopoverActive: boolean;
 }
 
 export default class FontSize extends React.Component<any, IFontSizeState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      fontsize: 11
+      fontsize: 11,
+      isPopoverActive: true
     };
   }
 
@@ -25,6 +27,7 @@ export default class FontSize extends React.Component<any, IFontSizeState> {
         dropdownClass="selected"
         dropdownText={dropdownHead}
         popoverTypeClass="font-size-popover"
+        isPopoverActive={this.state.isPopoverActive}
         popoverTypeId="font_size"
       >
         <ul>{this.returnFontSizes()}</ul>
@@ -40,7 +43,10 @@ export default class FontSize extends React.Component<any, IFontSizeState> {
     ));
   };
   private handleClick = (selectedFontSize: number) => {
-    this.setState({ fontsize: selectedFontSize });
+    this.setState({
+      fontsize: selectedFontSize,
+      isPopoverActive: false,
+    });
   };
   private handleChange = (e: any) => {
     if (e.target.value.match('^\\d*$') != null) {
