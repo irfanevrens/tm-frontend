@@ -14,6 +14,8 @@ export default class FontSize extends React.Component<any, IFontSizeState> {
       fontsize: 11,
       isPopoverActive: false
     };
+
+    this.onToggle = this.onToggle.bind(this);
   }
 
   public render() {
@@ -29,10 +31,16 @@ export default class FontSize extends React.Component<any, IFontSizeState> {
         popoverTypeClass="font-size-popover"
         isPopoverActive={this.state.isPopoverActive}
         popoverTypeId="font_size"
+        onToggle={this.onToggle}
       >
         <ul>{this.returnFontSizes()}</ul>
       </Popover>
     );
+  }
+  private onToggle(isActive: boolean|any) {
+    this.setState({
+      isPopoverActive: typeof isActive === 'boolean' ? isActive : !this.state.isPopoverActive
+    })
   }
   private returnFontSizes = () => {
     const sizes = [6, 7, 8, 9, 10, 11, 12, 14, 18, 24, 30, 36, 48, 60, 72, 96];
