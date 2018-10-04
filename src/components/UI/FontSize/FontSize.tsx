@@ -12,7 +12,7 @@ export default class FontSize extends React.Component<any, IFontSizeState> {
     super(props);
     this.state = {
       fontsize: 11,
-      isPopoverActive: true
+      isPopoverActive: false
     };
   }
 
