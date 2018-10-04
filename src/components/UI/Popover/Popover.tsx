@@ -32,7 +32,7 @@ export default class IPopover extends React.Component<IProps, IState> {
 
   public render() {
 
-    const isPopoverActive = this.state.isPopoverActive && this.props.isPopoverActive;
+    const isPopoverActive = this.state.isPopoverActive ? true : this.props.isPopoverActive;
 
     return (
       <div
